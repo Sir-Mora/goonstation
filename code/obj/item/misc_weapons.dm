@@ -1549,3 +1549,105 @@ obj/item/whetstone
 	New()
 		..()
 		BLOCK_SETUP(BLOCK_ROD)
+
+/obj/item/odachi
+	name = "Odachi"
+	desc = "A large two handed sword, it is extremly large and would be too heavy for any normal person to lift"
+	icon = 'icons/obj/large/64x32.dmi'
+	icon_state = "odachi"
+	inhand_image_icon = 'icons/mob/inhand/hand_weapons.dmi'
+	hit_type = DAMAGE_CUT
+	flags = FPRINT | TABLEPASS | NOSHIELD | USEDELAY
+	force = 35
+	throwforce = 5.0
+	throw_speed = 1
+	throw_range = 5
+	contraband = 7
+	two_handed = 1
+	cant_other_remove = 1
+	cant_drop = 1
+	w_class = W_CLASS_BULKY
+	hitsound = 'sound/impact_sounds/Blade_Small_Bloody.ogg'
+
+	New()
+		..()
+		src.setItemSpecial(/datum/item_special/swipe)
+		BLOCK_SETUP(BLOCK_SWORD)
+
+/obj/item/odachi_sheath
+	name = "odachi sheath"
+	desc = "It can clean a bloodied odachi, and also allows for easier storage of a odachi"
+	icon = 'icons/obj/large/64x32.dmi'
+	icon_state = "odachi_sheathed"
+	wear_layer = MOB_SHEATH_LAYER
+	uses_multiple_icon_states = 1
+	inhand_image_icon = 'icons/mob/inhand/hand_weapons.dmi'
+	item_state = "sheathedhand"
+	hit_type = DAMAGE_BLUNT
+	force = 1
+	throwforce = 5.0
+	throw_speed = 1
+	throw_range = 5
+	w_class = W_CLASS_BULKY
+	flags = FPRINT | TABLEPASS | NOSHIELD | USEDELAY | ONBACK
+	cant_other_remove = 1
+	cant_self_remove = 1
+	cant_drop = 1
+
+	var/obj/item/odachi/sword_inside = 1
+	var/sheathed_state = "odachi_sheathed"
+	var/sheath_state = "odachi_sheath"
+
+	var/ih_sheathed_state = "sheathedhand"
+	var/ih_sheath_state = "sheathhand"
+	var/sword_path = /obj/item/odachi
+
+
+	New()
+		..()
+		var/obj/item/odachi/K = new sword_path()
+		sword_inside = K
+		K.set_loc(src)
+		BLOCK_SETUP(BLOCK_ROD)
+
+	attack_hand(mob/living/carbon/human/user as mob)
+		if(src.sword_inside && (user.r_hand == src || user.l_hand == src || user.belt == src))
+			draw_sword(user)
+		else
+			return ..()
+
+	attack_self(mob/living/carbon/human/user as mob)
+		if(user.r_hand == src || user.l_hand == src)
+			draw_sword(user)
+		else
+			return ..()
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (istype(W, /obj/item/odachi) && !src.sword_inside && !W.cant_drop == 1)
+			icon_state = sheathed_state
+			item_state = ih_sheathed_state
+			user.u_equip(W)
+			W.set_loc(src)
+			user.update_clothing()
+			src.sword_inside = W //katana SHOULD be in the sheath now.
+			boutput(user, "<span class='notice'>You sheathe [W] in [src].</span>")
+			playsound(user, "sound/effects/sword_sheath.ogg", 50, 0, 0)
+		else
+			..()
+			if(W.cant_drop == 1)
+				boutput(user, "<span class='notice'>You can't sheathe the [W] while its attached to your arm.</span>")
+
+/obj/item/odachi_sheath/proc/draw_sword(mob/living/carbon/human/user)
+	if(src.sword_inside) //Checks if a katana is inside
+		if (!user.r_hand || !user.l_hand)
+			sword_inside.clean_forensic()
+			boutput(user, "You draw [sword_inside] from your sheath.")
+			playsound(user, pick("sound/effects/sword_unsheath1.ogg","sound/effects/sword_unsheath2.ogg"), 50, 0, 0)
+			icon_state = sheath_state
+			item_state = ih_sheath_state
+			user.put_in_hand_or_drop(sword_inside)
+			sword_inside = null //No more sword inside.
+			user.update_clothing()
+		else
+			boutput(user, "You don't have a free hand to draw with!")
+
