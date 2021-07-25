@@ -2110,6 +2110,40 @@
 					. = "<B>[mob]</B> BWAHCAWCKs!"
 					playsound(mob, "sound/voice/screams/chicken_bawk.ogg", 50, 0, 0, mob.get_age_pitch())
 
+/datum/mutantrace/ronin
+	name = "Ronin"
+	icon = "icons/mob/ronin.dmi"
+	icon_state = "body_m"
+	human_compatible = 0
+	uses_human_clothes = 0
+	var/original_name
+	jerk = 1
+	override_attack = 0
+	ignore_missing_limbs = 1
+	var/old_client_color = null
+	mutant_appearance_flags = (NOT_DIMORPHIC | HAS_NO_SKINTONE | HAS_NO_EYES | BUILT_FROM_PIECES)
+	mutant_folder = 'icons/mob/ronin.dmi'
+	special_head = HEAD_CHICKEN
+	r_limb_arm_type_mutantrace = /obj/item/parts/human_parts/arm/mutant/ronin/right
+	l_limb_arm_type_mutantrace = /obj/item/parts/human_parts/arm/mutant/ronin/left
+	r_limb_leg_type_mutantrace = /obj/item/parts/human_parts/leg/mutant/ronin/right
+	l_limb_leg_type_mutantrace = /obj/item/parts/human_parts/leg/mutant/ronin/left
+
+	New()
+		..()
+		if (ishuman(mob))
+			mob.add_stam_mod_max("ronin", 40) // Gave them a significant stamina boost, same as a WW (mora)
+			mob.add_stun_resist_mod("ronin", 40)
+			mob.max_health += 50
+			health_update_queue |= mob
+			src.original_name = mob.real_name
+			mob.real_name = "Haunted Armor"
+
+			mob.bioHolder.AddEffect("regenerator_ronin", null, null, 0, 1)
+
+	onDeath(gibbed)
+		. = ..()
+
 #undef OVERRIDE_ARM_L
 #undef OVERRIDE_ARM_R
 #undef OVERRIDE_LEG_R

@@ -145,7 +145,8 @@
 #define LIMB_WOLF     (1<<15)
 /// Limb is kinda boney
 #define LIMB_SKELLY   (1<<16)
-
+//limb is kinda old
+#define LIMB_RONIN    (1<<17)
 // islimb macros
 #define ismutantlimb(x)   HAS_FLAG(x:kind_of_limb, LIMB_MUTANT)
 #define isrobotlimb(x)    HAS_FLAG(x:kind_of_limb, LIMB_ROBOT)
@@ -164,12 +165,14 @@
 #define iswendigolimb(x)  HAS_FLAG(x:kind_of_limb, LIMB_WENDIGO)
 #define iswolflimb(x)     HAS_FLAG(x:kind_of_limb, LIMB_WOLF)
 #define isskeletonlimb(x) HAS_FLAG(x:kind_of_limb, LIMB_SKELLY)
+#define isroninlimb(x)    HAS_FLAG(x:kind_of_limb, LIMB_RONIN)
 #define ismonsterlimb(x) (HAS_FLAG(x:kind_of_limb, LIMB_ZOMBIE) |\
                           HAS_FLAG(x:kind_of_limb, LIMB_HUNTER) |\
                           HAS_FLAG(x:kind_of_limb, LIMB_BEAR) |\
                           HAS_FLAG(x:kind_of_limb, LIMB_WENDIGO) |\
                           HAS_FLAG(x:kind_of_limb, LIMB_ABOM) |\
-                          HAS_FLAG(x:kind_of_limb, LIMB_WOLF))
+                          HAS_FLAG(x:kind_of_limb, LIMB_WOLF) |\
+						  HAS_FLAG(x:kind_of_limb, LIMB_RONIN))
 #define isrobolimb(x) (HAS_FLAG(x:kind_of_limb, LIMB_ROBOT) |\
                        HAS_FLAG(x:kind_of_limb, LIMB_LIGHT) |\
                        HAS_FLAG(x:kind_of_limb, LIMB_HEAVY) |\

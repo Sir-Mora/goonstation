@@ -18,7 +18,7 @@
 #define HEAD_ITHILLID 15
 #define HEAD_VIRTUAL 16
 #define HEAD_FLASHY 17
-
+#define HEAD_RONIN 18
 //tail defines
 #define TAIL_NONE 0
 #define TAIL_MONKEY 1

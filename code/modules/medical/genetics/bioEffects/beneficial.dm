@@ -302,6 +302,33 @@
 			if(!istype(H.mutantrace, /datum/mutantrace/werewolf))
 				H.contract_disease(/datum/ailment/disease/lycanthropy,null,null,0) // awoo
 
+/datum/bioEffect/regenerator/ronin
+	name = "Tsukumogami Regeneration"
+	desc = "The subjucts host body is subject to rapid Regeneration"
+	id = "regenerator_ronin"
+	occur_in_genepools = 0
+	probability = 0
+	scanner_visibility = 0
+	can_research = 0
+	can_make_injector = 0
+	can_copy = 0
+	can_reclaim = 0
+	can_scramble = 0
+	curable_by_mutadone = 0
+	stability_loss = 0
+	msgGain = "You feel like your being remade"
+	msgLose = "You feel more comfortable in your own skin."
+	heal_per_tick = 2
+	regrow_prob = 50
+	acceptable_in_mutini = 0 // why would this be in mutini? THINK SPESSMAN THINK!
+
+	OnAdd()
+		. = ..()
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			if(!istype(H.mutantrace, /datum/mutantrace/ronin))
+				H.contract_disease(/datum/ailment/disease/robotic_transformation,null,null,0) // couldnt think of anything else to put here
+
 /datum/bioEffect/detox
 	name = "Natural Anti-Toxins"
 	desc = "Enables the subject's bloodstream to purge foreign substances more rapidly."

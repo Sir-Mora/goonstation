@@ -2165,3 +2165,112 @@
 	side = "right"
 	partlistPart = "foot_right"
 	step_image_state = "footprintsR"
+
+/obj/item/parts/human_parts/arm/mutant/ronin/right
+	name = "Armored right arm"
+	desc = "A right arm. Looks like a rope composed of vines. And tofu??"
+	icon_state = "arm_right_ronin"
+	slot = "r_arm"
+	side = "right"
+	decomp_affected = 0
+	skintoned = 0
+	handlistPart = "r_hand_ronin"
+	var/name_thing = "ronin"
+	show_on_examine = 1
+	easy_attach = 1
+	limb_is_unnatural = TRUE
+	kind_of_limb = (LIMB_RONIN)
+
+	New(var/atom/holder)
+		if (holder != null)
+			set_loc(holder)
+		..()
+
+	getMobIcon(var/lying, var/decomp_stage = 0)
+		if (src.standImage && ((src.decomp_affected && src.current_decomp_stage_s == decomp_stage) || !src.decomp_affected))
+			return src.standImage
+		current_decomp_stage_s = decomp_stage
+		src.standImage = image('icons/mob/human.dmi', "[src.slot]_[name_thing]")
+		return standImage
+
+/obj/item/parts/human_parts/arm/mutant/ronin/left
+	name = "Armored left arm"
+	desc = "A left arm. Looks like its part of a old ass suit of armor"
+	icon_state = "arm_left_ronin"
+	slot = "l_arm"
+	side = "left"
+	decomp_affected = 0
+	skintoned = 0
+	handlistPart = "l_hand_ronin"
+	var/name_thing = "ronin"
+	show_on_examine = 1
+	easy_attach = 1
+	limb_is_unnatural = TRUE
+	kind_of_limb = (LIMB_RONIN)
+
+	New(var/atom/holder)
+		if (holder != null)
+			set_loc(holder)
+		..()
+
+	getMobIcon(var/lying, var/decomp_stage = 0)
+		if (src.standImage && ((src.decomp_affected && src.current_decomp_stage_s == decomp_stage) || !src.decomp_affected))
+			return src.standImage
+		current_decomp_stage_s = decomp_stage
+		src.standImage = image('icons/mob/human.dmi', "[src.slot]_[name_thing]")
+		return standImage
+
+
+/obj/item/parts/human_parts/leg/mutant/ronin/right
+	name = "Armored left leg"
+	desc = "A left leg. Looks like its part of a old ass suit of armor"
+	icon_state = "leg_left_ronin"
+	slot = "l_leg"
+	side = "left"
+	decomp_affected = 0
+	skintoned = 0
+	partlistPart = "l_foot_ronin"
+	var/name_thing = "ronin"
+	show_on_examine = 1
+	easy_attach = 1
+	limb_is_unnatural = TRUE
+	kind_of_limb = (LIMB_RONIN)
+
+	New(var/atom/holder)
+		if (holder != null)
+			set_loc(holder)
+		..()
+
+	getMobIcon(var/lying, var/decomp_stage = 0)
+		if (src.standImage && ((src.decomp_affected && src.current_decomp_stage_s == decomp_stage) || !src.decomp_affected))
+			return src.standImage
+		current_decomp_stage_s = decomp_stage
+		src.standImage = image('icons/mob/human.dmi', "[src.slot]_[name_thing]")
+		return standImage
+
+/obj/item/parts/human_parts/leg/mutant/ronin/left
+	name = "Armored right leg"
+	desc = "A right leg. Looks like its part of a old ass suit of armor"
+	icon_state = "leg_right_ronin"
+	slot = "r_leg"
+	side = "right"
+	decomp_affected = 0
+	skintoned = 0
+	partlistPart = "r_foot_ronin"
+	var/name_thing = "ronin"
+	show_on_examine = 1
+	easy_attach = 1
+	limb_is_unnatural = TRUE
+	kind_of_limb = (LIMB_RONIN)
+
+	New(var/atom/holder)
+		if (holder != null)
+			set_loc(holder)
+		..()
+
+	getMobIcon(var/lying, var/decomp_stage = 0)
+		if (src.standImage && ((src.decomp_affected && src.current_decomp_stage_s == decomp_stage) || !src.decomp_affected))
+			return src.standImage
+		current_decomp_stage_s = decomp_stage
+		src.standImage = image('icons/mob/human.dmi', "[src.slot]_[name_thing]")
+		return standImage
