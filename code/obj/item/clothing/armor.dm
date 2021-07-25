@@ -434,3 +434,19 @@
 		setProperty("rangedprot", 0.7)
 		setProperty("coldprot", 5)
 		setProperty("heatprot", 35)
+
+/obj/item/clothing/suit/armor/ronin
+	name = "Metal Karuta Armor"
+	desc = "A set of armor traditionally worn by samurai, this set radiates a ominous energy "
+	icon_state = "ronin"
+	item_state = "ronin"
+	cant_other_remove = 1
+	cant_self_remove = 1
+	cant_drop = 1
+
+	setupProperties()
+		..()
+		setProperty("meleeprot", 5)
+		setProperty("rangedprot", 0.5)
+		setProperty("coldprot", 50)
+		setProperty("heatprot", 50)

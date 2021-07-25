@@ -839,3 +839,22 @@
 		setProperty("heatprot", 15)
 		setProperty("disorient_resist_eye", 8)
 		setProperty("disorient_resist_ear", 8)
+
+/obj/item/clothing/head/helmet/ronin
+	name = "Horned Kabuto Helmet"
+	desc = "A horned helmet traditionally worn by samurai"
+	c_flags = BLOCKCHOKE | SPACEWEAR
+	icon_state = "ronin"
+	item_state = "ronin"
+	seal_hair = 1
+	cant_other_remove = 1
+	cant_self_remove = 1
+	cant_drop = 1
+
+	setupProperties()
+		..()
+		setProperty("meleeprot_head", 5)
+		setProperty("rangedprot", 0.5)
+		setProperty("coldprot", 50)
+		setProperty("heatprot", 50)
+		setProperty("disorient_resist_ear", 8)
