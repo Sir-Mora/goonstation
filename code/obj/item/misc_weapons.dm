@@ -1563,7 +1563,7 @@ obj/item/whetstone
 	throw_speed = 1
 	throw_range = 5
 	contraband = 7
-	two_handed = 1
+	two_handed = 0
 	cant_other_remove = 1
 	cant_drop = 1
 	w_class = W_CLASS_BULKY
@@ -1591,8 +1591,7 @@ obj/item/whetstone
 	w_class = W_CLASS_BULKY
 	flags = FPRINT | TABLEPASS | NOSHIELD | USEDELAY | ONBACK
 	cant_other_remove = 1
-	cant_self_remove = 1
-	cant_drop = 1
+
 
 	var/obj/item/odachi/sword_inside = 1
 	var/sheathed_state = "odachi_sheathed"

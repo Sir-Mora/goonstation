@@ -31,6 +31,7 @@ datum/preferences
 	var/be_changeling = 0
 	var/be_wizard = 0
 	var/be_werewolf = 0
+	var/be_ronin = 0
 	var/be_vampire = 0
 	var/be_wraith = 0
 	var/be_blob = 0
@@ -876,6 +877,7 @@ datum/preferences
 				be_changeling = 0
 				be_wizard = 0
 				be_werewolf = 0
+				be_ronin = 0
 				be_vampire = 0
 				be_wraith = 0
 				be_blob = 0
@@ -1290,6 +1292,7 @@ datum/preferences
 			src.be_changeling = 0
 			src.be_wizard = 0
 			src.be_werewolf = 0
+			src.be_ronin = 0
 			src.be_vampire = 0
 			src.be_wraith = 0
 			src.be_blob = 0
@@ -1306,6 +1309,7 @@ datum/preferences
 			<a href="byond://?src=\ref[src];preferences=1;b_changeling=1" class="[src.be_changeling ? "yup" : "nope"]">[crap_checkbox(src.be_changeling)] Changeling</a>
 			<a href="byond://?src=\ref[src];preferences=1;b_wizard=1" class="[src.be_wizard ? "yup" : "nope"]">[crap_checkbox(src.be_wizard)] Wizard</a>
 			<a href="byond://?src=\ref[src];preferences=1;b_werewolf=1" class="[src.be_werewolf ? "yup" : "nope"]">[crap_checkbox(src.be_werewolf)] Werewolf</a>
+			<a href="byond://?src=\ref[src];preferences=1;b_ronin=1" class="[src.be_ronin ? "yup" : "nope"]">[crap_checkbox(src.be_ronin)] ronin</a>
 			<a href="byond://?src=\ref[src];preferences=1;b_vampire=1" class="[src.be_vampire ? "yup" : "nope"]">[crap_checkbox(src.be_vampire)] Vampire</a>
 			<a href="byond://?src=\ref[src];preferences=1;b_wraith=1" class="[src.be_wraith ? "yup" : "nope"]">[crap_checkbox(src.be_wraith)] Wraith</a>
 			<a href="byond://?src=\ref[src];preferences=1;b_blob=1" class="[src.be_blob ? "yup" : "nope"]">[crap_checkbox(src.be_blob)] Blob</a>
@@ -1538,6 +1542,11 @@ datum/preferences
 
 		if (link_tags["b_werewolf"])
 			src.be_werewolf = !( src.be_werewolf)
+			src.SetChoices(user)
+			return
+
+		if (link_tags["b_ronin"])
+			src.be_ronin = !( src.be_ronin)
 			src.SetChoices(user)
 			return
 

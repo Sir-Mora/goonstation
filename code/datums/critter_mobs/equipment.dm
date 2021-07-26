@@ -141,3 +141,12 @@
 				O.cant_other_remove = TRUE
 				if (item)
 					hud.add_object(item, HUD_LAYER+1, screenObj.screen_loc)
+
+	Sheath
+		name = "Sheath"
+		type_filters = list(/obj/item/katana_sheath)
+		icon = 'icons/mob/hud_human.dmi'
+		icon_state = "belt"
+
+		var/obj/item/katana_sheath/S
+		equip(S)

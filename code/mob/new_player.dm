@@ -744,6 +744,11 @@ a.latejoin-card:hover {
 				objective_set_path = /datum/objective_set/werewolf
 				traitormob.make_werewolf()
 
+			if ("ronin")
+				traitor.special_role = "ronin"
+				objective_set_path = /datum/objective_set/ronin
+				traitormob.make_ronin()
+
 			if ("wraith")
 				traitor.special_role = "wraith"
 				traitormob.make_wraith()

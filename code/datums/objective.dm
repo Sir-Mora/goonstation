@@ -1333,8 +1333,14 @@ ABSTRACT_TYPE(/datum/objective/conspiracy)
 	objective_list = list(/datum/objective/specialist/werewolf/feed)
 	escape_choices = list(/datum/objective/escape/survive)
 
+/datum/objective_set/ronin
+	objective_list = list(/datum/objective/regular/assassinate,
+	/datum/objective/regular/assassinate,
+	/datum/objective/regular/assassinate)
+	escape_choices = list(/datum/objective/escape/kamikaze)
+
 /datum/objective_set/blob
-	objective_list = list(/datum/objective/specialist/blob)
+	objective_list = list(/datum/objective/specialist/blob,)
 	escape_choices = list(/datum/objective/escape/survive)
 
 // Wraith not listed since it has its own dedicated proc

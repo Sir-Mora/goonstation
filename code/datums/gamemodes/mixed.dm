@@ -2,7 +2,7 @@
 	name = "mixed (action)"
 	config_tag = "mixed"
 	latejoin_antag_compatible = 1
-	latejoin_antag_roles = list("traitor", "changeling", "vampire", "wrestler", "werewolf")
+	latejoin_antag_roles = list("traitor", "changeling", "vampire", "wrestler", "werewolf", "ronin")
 
 	var/const/traitors_possible = 8 // cogwerks - lowered from 10
 	var/const/werewolf_players_req = 15
@@ -11,7 +11,7 @@
 	var/has_werewolves = 1
 	var/has_blobs = 1
 
-	var/list/traitor_types = list("traitor","changeling","vampire", "spy_thief", "werewolf")
+	var/list/traitor_types = list("traitor","changeling","vampire", "spy_thief", "werewolf", "ronin")
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
@@ -50,6 +50,7 @@
 	var/num_blobs = 0
 	var/num_spy_thiefs = 0
 	var/num_werewolves = 0
+	var/num_ronin = 0
 #ifdef XMAS
 	src.traitor_types += "grinch"
 	src.latejoin_antag_roles += "grinch"
@@ -74,6 +75,7 @@
 				if("grinch") num_grinches++
 				if("spy_thief") num_spy_thiefs++
 				if("werewolf") num_werewolves++
+				if("ronin") num_ronin++
 
 	token_players = antag_token_list()
 	for(var/datum/mind/tplayer in token_players)
@@ -119,6 +121,10 @@
 				traitors += tplayer
 				token_players.Remove(tplayer)
 				tplayer.special_role = "werewolf"
+			if("ronin")
+				traitors += tplayer
+				token_players.Remove(tplayer)
+				tplayer.special_role = "ronin"
 
 		logTheThing("admin", tplayer.current, null, "successfully redeemed an antag token.")
 		message_admins("[key_name(tplayer.current)] successfully redeemed an antag token.")
@@ -195,6 +201,14 @@
 			traitors += wolf
 			wolf.special_role = "werewolf"
 			possible_werewolves.Remove(wolf)
+
+	if(num_ronin)
+		var/list/possible_ronin = get_possible_enemies("ronin",num_ronin)
+		var/list/chosen_ronin = antagWeighter.choose(pool = possible_ronin, role = "ronin", amount = num_ronin, recordChosen = 1)
+		for (var/datum/mind/ronin in chosen_ronin)
+			traitors += ronin
+			ronin.special_role = "Ronin"
+			possible_ronin.Remove(ronin)
 
 	if(!traitors) return 0
 
@@ -300,6 +314,31 @@
 				objective_set_path = /datum/objective_set/werewolf
 				traitor.current.make_werewolf()
 
+			if ("ronin")
+				objective_set_path = /datum/objective_set/ronin
+				traitor.current.make_ronin()
+
+				var/randomname
+				if (traitor.current.gender == "female")
+					randomname = pick_string_autokey("names/wizard_female.txt")
+				else
+					randomname = pick_string_autokey("names/wizard_male.txt")
+
+				SPAWN_DBG(0)
+					var/newname = input(traitor.current,"You are a ronin. Would you like to change your name to something else?", "Name change",randomname)
+					if(newname && newname != randomname)
+						phrase_log.log_phrase("name-wizard", randomname, no_duplicates=TRUE)
+					if (length(ckey(newname)) == 0)
+						newname = randomname
+
+					if (newname)
+						if (length(newname) >= 26) newname = copytext(newname, 1, 26)
+						newname = strip_html(newname)
+						traitor.current.real_name = newname
+						traitor.current.name = newname
+
+
+
 		if (!isnull(objective_set_path)) // Cannot create objects of type null. [wraiths use a special proc]
 			new objective_set_path(traitor)
 		var/obj_count = 1
@@ -336,11 +375,13 @@
 					if(player.client.preferences.be_spy) candidates += player.mind
 				if("werewolf")
 					if(player.client.preferences.be_werewolf) candidates += player.mind
+				if("ronin")
+					if(player.client.preferences.be_ronin) candidates += player.mind
 				else
 					if(player.client.preferences.be_misc) candidates += player.mind
 
 	if(candidates.len < number)
-		if(type in list("wizard","traitor","changeling", "wraith", "blob", "werewolf"))
+		if(type in list("wizard","traitor","changeling", "wraith", "blob", "werewolf", "ronin"))
 			logTheThing("debug", null, null, "<b>Enemy Assignment</b>: Only [candidates.len] players with be_[type] set to yes were ready. We need [number] so including players who don't want to be [type]s in the pool.")
 		else
 			logTheThing("debug", null, null, "<b>Enemy Assignment</b>: Not enough players with be_misc set to yes, including players who don't want to be misc enemies in the pool for [type] assignment.")
