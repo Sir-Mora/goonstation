@@ -1753,3 +1753,21 @@ ABSTRACT_TYPE(/obj/item/gun/kinetic)
 		ammo = new/obj/item/ammo/bullets/foamdarts/ten
 		set_current_projectile(new/datum/projectile/bullet/foamdart)
 		..()
+
+/obj/item/gun/kinetic/Railgun
+	name = "Experimental Handheld Railgun"
+	icon_state = "railgun"
+	desc = "A experimental long range weapon for less than lethal take downs, developed by NT using the cheapest parts available."
+	contraband = 5
+	max_ammo_capacity = 1
+	var/auto_eject = 1
+	add_residue = 0 //its a railgun, wheres the residue gonna come from?
+	caliber = 1.0
+
+	var/cell_type = /obj/item/ammo/power_cell/med_power // Type of cell to spawn by default.
+	var/cost_normal = 25
+
+	New()
+		ammo = new/obj/item/ammo/bullets/rod
+		set_current_projectile(new/datum/projectile/bullet/rod)
+		..()
